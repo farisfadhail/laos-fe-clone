@@ -103,7 +103,7 @@
         </swiper-slide>
       </swiper>
       <div v-else class="px-2">
-        <h2>Tidak ada proker untuk saat ini.</h2>
+        <h2>Proker masih proses bossssss.</h2>
       </div>
     </div>
   </div>
