@@ -1,9 +1,4 @@
 <template>
-  <!-- 
-    TODO : 1. Membenarkan gradient pada hero section agar sesuai dengan tampilan figma
-           2. Membuat carousel proker sesuai dengan tampilan figma
-           3. Koneksi ke API BE (Proker)
-   -->
   <Navbar />
   <section class="hero">
     <div class="hero-content">
@@ -19,7 +14,7 @@
       /></a>
     </div>
   </section>
-  <section class="container mx-auto">
+  <section class="container mx-auto mb-16">
     <div class="section">
       <div class="header">
         <h2 class="title">Manfaat Laosars</h2>
@@ -75,31 +70,43 @@
           porttitor
         </p>
       </div>
-      <div class="h-60 lg:h-96 bg-[#F8F8F8] py-12 rounded-3xl shadow-inner">
-        <swiper
-          :slidesPerView="2"
-          :spaceBetween="30"
-          :pagination="{
-            clickable: true,
-          }"
-          :modules="modules"
-          class="h-full w-full"
-        >
-          <swiper-slide class="bg-gradient-to-br from-[#B65EBA] to-[#2E8DE1]"
-            >Slide 1</swiper-slide
-          ><swiper-slide>Slide 2</swiper-slide
-          ><swiper-slide>Slide 3</swiper-slide
-          ><swiper-slide>Slide 4</swiper-slide
-          ><swiper-slide>Slide 5</swiper-slide
-          ><swiper-slide>Slide 6</swiper-slide
-          ><swiper-slide>Slide 7</swiper-slide
-          ><swiper-slide>Slide 8</swiper-slide
-          ><swiper-slide>Slide 9</swiper-slide>
-        </swiper>
-      </div>
     </div>
   </section> -->
-  <section class="container mx-auto">
+  <div class="flex justify-center">
+    <div class="slider__container">
+      <swiper
+        v-if="prokers.length > 0"
+        :slidesPerView="2"
+        :spaceBetween="30"
+        :centeredSlides="true"
+        :autoplay="{
+          delay: 5000,
+          disableOnInteraction: false,
+        }"
+        :pagination="{
+          clickable: true,
+        }"
+        :modules="modules"
+        class="h-full w-full"
+      >
+        <swiper-slide
+          v-for="proker in prokers"
+          class="relative"
+          :key="'proker-' + proker.title"
+        >
+          <img
+            :src="url.concat(`/${proker.poster}`)"
+            class="absolute h-full w-full -z-10"
+          />
+          <p>{{ proker.content }}</p>
+        </swiper-slide>
+      </swiper>
+      <div v-else class="px-2">
+        <h2>Tidak ada proker untuk saat ini.</h2>
+      </div>
+    </div>
+  </div>
+  <section class="container mx-auto mb-16">
     <div class="section">
       <div class="header">
         <h2 class="title">Divisi Kami</h2>
@@ -224,14 +231,18 @@
 </template>
 
 <script>
+import CONSTANT from "@/const";
+
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
-import Footer from '../components/Footer.vue'
 
 // import required modules
-import { Pagination } from "swiper";
-import Navbar from '../components/Navbar.vue'
+import { Pagination, Autoplay } from "swiper";
+import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
+
+import axios from "axios";
 
 export default {
   name: "Homepage",
@@ -239,12 +250,38 @@ export default {
     Swiper,
     SwiperSlide,
     Navbar,
-    Footer
+    Footer,
   },
   setup() {
     return {
-      modules: [Pagination],
+      modules: [Pagination, Autoplay],
     };
+  },
+  data() {
+    return {
+      prokers: [],
+      url: CONSTANT.apiUrl,
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.getProker();
+    });
+  },
+  methods: {
+    async getProker() {
+      try {
+        const response = await axios.get(this.url.concat("/api/proker"));
+        const { data } = response.data;
+        if (!data.length > 0) {
+          throw new Error("Data proker kosong");
+        }
+
+        this.prokers = data;
+      } catch (error) {
+        this.prokers = [];
+      }
+    },
   },
 };
 </script>
@@ -325,9 +362,43 @@ export default {
   max-width: 200px;
 }
 
+.swiper-wrapper {
+  margin-top: 2em;
+}
+
+.slider__container {
+  @apply h-60 lg:h-96 bg-[#F8F8F8] rounded-3xl shadow-inner flex items-center justify-center lg:min-w-[50%];
+  max-width: 1100px;
+}
+
 .swiper-slide {
-  @apply max-h-72 rounded-3xl;
+  @apply max-h-72 rounded-3xl overflow-hidden;
+  cursor: pointer;
+  max-width: 470px;
   background: pink;
+}
+
+.swiper-slide img {
+  object-fit: cover;
+}
+
+.swiper-slide p {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.41);
+  bottom: 0;
+  color: white;
+  display: flex;
+  height: 0;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.swiper-slide:hover p {
+  height: 30%;
 }
 
 @media (min-width: 1024px) {

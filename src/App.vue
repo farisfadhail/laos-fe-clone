@@ -1,18 +1,17 @@
 <template>
   <div :data-theme="theme">
-      <router-view />
+    <router-view />
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
-      theme: import.meta.env.VITE_THEME,
+      theme: import.meta.env.VITE_THEME || "light",
     };
   },
-  components: { },
+  components: {},
 };
 </script>
 
