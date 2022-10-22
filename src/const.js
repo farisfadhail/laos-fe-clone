@@ -8,22 +8,27 @@ const constant = {
         {
             title: 'Blog',
             route: '/blog',
+            disabled: true,
         },
         {
             title: 'Learning Path',
             route: 'learningpath',
+            disabled: true,
         },
         {
             title: 'Event',
             route: 'event',
+            disabled: true,
         },
         {
             title: 'Program Kerja',
             route: 'proker',
+            disabled: false,
         },
         {
             title: 'Tentang Kami',
             route: 'about',
+            disabled: false,
         },
     ],
 }

@@ -9,9 +9,9 @@
         Fakultas Ilmu Komputer Universitas Jember.
       </p>
       <img src="../assets/saly.png" class="mx-auto lg:absolute w-1/2 -z-10" />
-      <a class="btn btn-secondary"
+      <router-link to="/about" class="btn btn-secondary"
         >Yuk Cari Tau <font-awesome-icon icon="fas fa-arrow-right" class="pl-2"
-      /></a>
+      /></router-link>
     </div>
   </section>
   <section class="container mx-auto mb-16">

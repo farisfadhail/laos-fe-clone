@@ -60,9 +60,13 @@
         </router-link>
       </div>
       <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal p-0 font-semibold">
+        <ul class="menu menu-horizontal p-0 font-semibold gap-2">
           <li v-for="menu in menus" :key="'menu-' + menu.title">
-            <router-link :to="menu.route" class="text-[#BDBDBD]">{{
+            <div class="indicator" v-if="menu.disabled">
+              <span class="indicator-item badge badge-warning">soon</span>
+              <a class="text-[#BDBDBD] route__disabled">{{ menu.title }}</a>
+            </div>
+            <router-link v-else :to="menu.route" class="text-[#BDBDBD]">{{
               menu.title
             }}</router-link>
           </li>
@@ -152,5 +156,9 @@ export default {
 }
 .menu .router-link-exact-active {
   color: #2dcc70;
+}
+
+.route__disabled {
+  cursor: not-allowed;
 }
 </style>
