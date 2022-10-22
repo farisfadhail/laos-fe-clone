@@ -1,18 +1,17 @@
 <template>
   <div :data-theme="theme">
-    <Home></Home>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Home from "./components/Home.vue";
 export default {
   data() {
     return {
-      theme: import.meta.env.VITE_THEME,
+      theme: import.meta.env.VITE_THEME || "light",
     };
   },
-  components: { Home },
+  components: {},
 };
 </script>
 
