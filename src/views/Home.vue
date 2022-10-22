@@ -98,7 +98,8 @@
             :src="url.concat(`/${proker.poster}`)"
             class="absolute h-full w-full -z-10"
           />
-          <p>{{ proker.content }}</p>
+          <!-- <p>{{ proker.content }}</p> -->
+          <div v-html="proker.content" />
         </swiper-slide>
       </swiper>
       <div v-else class="px-2">
@@ -223,6 +224,59 @@
             aplikasi serta mengelola poster yang di sebarkan di sosial media UKM
             LAOS.
           </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="container mx-auto mb-16">
+    <div class="section">
+      <div class="header">
+        <h2 class="title">Projek Anggota dan Pengurus</h2>
+        <p>Belajar bersama untuk meningkatkan keterampilan dan pengetahuan.</p>
+      </div>
+      <div class="grid grid-col-1 gap-4">
+        <div class="project__container">
+          <img src="../assets/golang.png" class="project__image" />
+          <div class="w-full text-left">
+            <h2 class="font-semibold text-black">
+              Handika Catur Mahardika (Go-Blog)
+              <a
+                class="text-blue-600"
+                href="https://github.com/handikacatur/go-blog"
+                target="_blank"
+                ><font-awesome-icon icon="fa-solid fa-link"
+              /></a>
+            </h2>
+            <span class="text-gray-400">Sistem Informasi 192410101066</span>
+            <p class="mt-4">
+              Go merupakan bahasa yang dibuat oleh Google pada tahun 2009, dan
+              blog yang dibuat oleh Handika ini menggunakan bahasa Go atau bisa
+              juga disebut Golanguage. Selain performanya yang bisa dibilang
+              cepat bahasa Go juga dikatakan mudah untuk dipelajari bagi pemula.
+            </p>
+          </div>
+        </div>
+        <div class="project__container">
+          <img src="../assets/ai.jpg" class="project__image" />
+          <div class="w-full text-left">
+            <h2 class="font-semibold text-black">
+              Handika Catur Mahardika (Covid Social Distancing)
+              <a
+                class="text-blue-600"
+                href="https://github.com/handikacatur/covid19-social-distancing"
+                target="_blank"
+                ><font-awesome-icon icon="fa-solid fa-link"
+              /></a>
+            </h2>
+            <span class="text-gray-400">Sistem Informasi 192410101066</span>
+            <p class="mt-4">
+              Perkembangan yang begitu pesat membuat banyak peneliti membuat
+              sebuah algoritma yang membuat mesin komputer belajar sendiri yaitu
+              machine learning. Pada project milik handika ini ia memakai
+              machine learning untuk mengklasifikasi sebuah gambar apakah gambar
+              tersebut ramai atau tidak ramai.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -399,6 +453,15 @@ export default {
 
 .swiper-slide:hover p {
   height: 30%;
+}
+
+.project__container {
+  @apply shadow flex gap-4 text-black p-4;
+}
+
+.project__image {
+  max-width: 240px;
+  max-height: 240px;
 }
 
 @media (min-width: 1024px) {
